@@ -40,7 +40,7 @@ class CommonController extends Controller
                 UserProfile::create([
                     'user_id'=>$authUserId,
                     'name'=>$request->name,
-                    'email'=>$request->email,
+                    'email'=>Auth::user()->email,
                     'contact_no'=>$request->contact_no,
                     'address'=>$request->address,
                 ]);
