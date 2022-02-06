@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\UserProfile;
 use Auth;
 use App\User;
+use App\Models\AcademicInformation;
 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,6 +66,69 @@ class CommonController extends Controller
                 'data' => [],
                 'message' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function academicInformationsCreateUpdate(Request $request)
+    {
+        $user_id = Auth::user()->id ? Auth::user()->id : 0;
+        $user_info = User::where("id", $user_id)->first();
+
+        if(empty($user_info)){
+            return response()->json([
+                'success' => false,
+                'data' => [],
+                'message' => "User not found!"
+            ], Response::HTTP_NOT_FOUND); 
+        }
+
+        if(!$request->exam_name){
+            return response()->json([
+                'success' => false, 'data' => [], 'message' => "Please, enter exam name!"
+            ], Response::HTTP_NOT_FOUND); 
+        }
+
+        $payload = [
+            "user_id"       => $user_id, 
+            "exam_name"     => $request->exam_name, 
+            "institute"     => $request->institute, 
+            "cgpa"          => $request->cgpa, 
+            "year"          => $request->year, 
+            "is_completed"  => $request->is_completed, 
+            "is_pursuing"   => $request->is_pursuing
+        ];
+
+        try {
+            if($request->id){
+                AcademicInformation::where('id', $request->id)->update($payload);
+                return response()->json([
+                    'success' => true,
+                    'data' => [],
+                    'message' => "Academic Information has been updated successfully"
+                ], Response::HTTP_OK);
+
+            } else {
+                $isExist = AcademicInformation::where('user_id', $user_id)->where('exam_name', $request->exam_name)->first();
+                if (empty($isExist)) {
+                    AcademicInformation::create($payload);
+                    return response()->json([
+                        'success' => true,
+                        'data' => [],
+                        'message' => "Academic Information has been created successfully"
+                    ], Response::HTTP_CREATED);
+                }else{
+                    return response()->json([
+                        'success' => false,
+                        'data' => [],
+                        'message' => "Academic Information already Exist!"
+                    ], Response::HTTP_ACCEPTED);
+                }
+            }
+
+        } catch (Exception $e) {           
+            return response()->json([
+                'success' => false, 'data' => [], 'message' => "Please, Check details."
+            ], Response::HTTP_NOT_FOUND);
         }
     }
 }

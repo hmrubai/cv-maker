@@ -18,5 +18,6 @@ Route::group(['middleware' => 'jwt.verify'], function () {
 
     Route::get('user-details', 'CommonController@get_user');
     Route::post('user-update', 'CommonController@userUpdate');
+    Route::post('academic-create-or-update', 'CommonController@academicInformationsCreateUpdate');
 });
 
