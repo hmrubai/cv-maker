@@ -133,4 +133,23 @@ class CommonController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
     }
+
+    public function academicInformationsList(Request $request)
+    {
+        $user_id = Auth::user()->id ? Auth::user()->id : 0;
+        $user_info = User::where("id", $user_id)->first();
+
+        if(empty($user_info)){
+            return response()->json([
+                'success' => false,
+                'data' => [],
+                'message' => "User not found!"
+            ], Response::HTTP_NOT_FOUND); 
+        }
+
+        $all = AcademicInformation::where('user_id', $user_id)->get();
+        return response()->json([
+            'success' => true, 'data' => $all, 'message' => "Successful."
+        ], Response::HTTP_NOT_FOUND);
+    }
 }
