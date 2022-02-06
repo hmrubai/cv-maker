@@ -1,6 +1,6 @@
 ## CV Maker
 
-This application will be use as an CV maker platfrom for all. You can create you CV with your experiance informations.
+This application will be used as a CV maker platform for all. You can create your CV with your experience information.
 
 ## Contributor
 
