@@ -1,0 +1,16 @@
+/node_modules
+/public/hot
+/public/pdf
+/public/pdf/*
+/public/uploads/games
+/public/uploads/games/*
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
