@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserProfile;
 use Illuminate\Http\Request;
 
-use Auth;
+use Auth,DB;
 use JWTAuth;
 use Validator;
 use App\User;
@@ -28,7 +29,7 @@ class JwtAuthController extends Controller
         }
 
         $validator = Validator::make($request->all(), 
-        [ 
+        [
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',  
@@ -45,29 +46,57 @@ class JwtAuthController extends Controller
                 $message = "Password does not match!";
             }
             return response()->json(['success' => false, 'data' => [], 'message' => $message], 400); 
-        } 
+        }
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->contact_no = $request->contact_no ? $request->contact_no : null;
-        $user->user_type = $request->user_type ? $request->user_type : "Administrator";
-        $user->address = $request->address ? $request->address : null;
-        $user->password = bcrypt($request->password);
-        $user->save();
 
-        //app('App\Http\Controllers\MailController')->send_registration_email($request->name, $request->email);
-        
-        $input = $request->only('email', 'password');
-        $jwt_token = null;
-        $jwt_token = JWTAuth::attempt($input);
-        $user->token = $jwt_token;
 
-        return response()->json([
-            'success' => true,
-            'data' => $user,
-            'message' => "Registration successful."
-        ], Response::HTTP_OK);
+        try{
+            DB::beginTransaction();
+
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->contact_no = $request->contact_no ? $request->contact_no : null;
+            $user->user_type = $request->user_type ? $request->user_type : "Administrator";
+            $user->address = $request->address ? $request->address : null;
+            $user->password = bcrypt($request->password);
+            $user->save();
+
+            UserProfile::create([
+                'user_id'=>$user->id,
+                'name'=>$request->name,
+                'email'=>$request->email,
+                'contact_no'=>$request->contact_no,
+                'address'=>$request->address,
+            ]);
+
+            //app('App\Http\Controllers\MailController')->send_registration_email($request->name, $request->email);
+
+            $input = $request->only('email', 'password');
+            $jwt_token = null;
+            $jwt_token = JWTAuth::attempt($input);
+            $user->token = $jwt_token;
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'data' => $user,
+                'message' => "Registration successful."
+            ], Response::HTTP_OK);
+
+
+
+
+        }catch (Exception $e){
+            DB::rollback();
+            return response()->json([
+                'success' => false,
+                'data' => [],
+                'message' => $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     public function login(Request $request)
