@@ -44,14 +44,16 @@ class CommonController extends Controller
                     'contact_no'=>$request->contact_no,
                     'address'=>$request->address,
                 ]);
+            }else{
+                $userProfile->update([
+                    'name'=>$request->name,
+                    'contact_no'=>$request->contact_no,
+                    'address'=>$request->address,
+                ]);
             }
 
 
-            $userProfile->update([
-                'name'=>$request->name,
-                'contact_no'=>$request->contact_no,
-                'address'=>$request->address,
-            ]);
+
 
             return response()->json([
                 'success' => true,
