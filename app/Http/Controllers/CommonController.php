@@ -22,10 +22,10 @@ class CommonController extends Controller
         return response()->json(compact('data'),200);
     }
 
-    public function get_user(Request $request)
+    public function getMyProfile(Request $request)
     {
-        $user = Auth::user();
-        return response()->json(['success' => true, 'data' => $user, 'message' => 'User featched successful']);
+        $myProfile = UserProfile::where(['user_id'=>Auth::user()->id])->first();
+        return response()->json(['success' => true, 'data' => $myProfile, 'message' => 'User fetch successful']);
     }
 
     public function userUpdate(Request $request)

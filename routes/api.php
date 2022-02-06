@@ -16,7 +16,7 @@ Route::post('verify-code', 'JwtAuthController@code_verification');
 Route::group(['middleware' => 'jwt.verify'], function () {
     Route::post('logout', 'JwtAuthController@logout');
 
-    Route::get('user-details', 'CommonController@get_user');
+    Route::get('my-profile', 'CommonController@getMyProfile');
     Route::post('user-update', 'CommonController@userUpdate');
     Route::post('academic-create-or-update', 'CommonController@academicInformationsCreateUpdate');
     Route::get('user-academic-information-list', 'CommonController@academicInformationsList');
