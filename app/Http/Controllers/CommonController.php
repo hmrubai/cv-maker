@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserProfile;
 use Auth;
 use App\User;
 
@@ -28,45 +29,40 @@ class CommonController extends Controller
 
     public function userUpdate(Request $request)
     {
-        $user_id = Auth::user()->id ? Auth::user()->id : 0;
-        $user_info = User::where("id", $user_id)->first();
 
-        if(empty($user_info)){
+        try{
+            $authUserId=Auth::user()->id;
+
+            $userProfile=UserProfile::where(['user_id'=>$authUserId])->first();
+
+            if(empty($userProfile)){
+                return response()->json([
+                    'success' => false,
+                    'data' => [],
+                    'message' => "User Profile not found!"
+                ], Response::HTTP_NOT_FOUND);
+            }
+
+
+            $userProfile->update([
+                'name'=>$request->name,
+                'contact_no'=>$request->contact_no,
+                'address'=>$request->address,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'data' => [],
+                'message' => "Your Profile Update successful."
+            ], Response::HTTP_OK);
+
+        }catch (\Exception $e){
+
             return response()->json([
                 'success' => false,
                 'data' => [],
-                'message' => "User not found!"
-            ], Response::HTTP_NOT_FOUND); 
+                'message' => $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        if(!$request->name){
-            return response()->json([
-                'success' => false, 'data' => [], 'message' => "Please, enter name!"
-            ], Response::HTTP_NOT_FOUND); 
-        }
-
-        if($request->name){
-            User::where("id", $user_id)->update([
-                "name" => $request->name,
-            ]);
-        }
-
-        if($request->contact_no){
-            User::where("id", $user_id)->update([
-                "contact_no" => $request->contact_no
-            ]);
-        }
-
-        if($request->address){
-            User::where("id", $user_id)->update([
-                "address" => $request->address
-            ]);
-        }
-
-        return response()->json([
-            'success' => true,
-            'data' => [],
-            'message' => "User updated Successful"
-        ], Response::HTTP_OK);
     }
 }
