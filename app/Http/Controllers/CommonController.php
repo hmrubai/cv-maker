@@ -37,19 +37,23 @@ class CommonController extends Controller
             $userProfile=UserProfile::where(['user_id'=>$authUserId])->first();
 
             if(empty($userProfile)){
-                return response()->json([
-                    'success' => false,
-                    'data' => [],
-                    'message' => "User Profile not found!"
-                ], Response::HTTP_NOT_FOUND);
+                UserProfile::create([
+                    'user_id'=>$authUserId,
+                    'name'=>$request->name,
+                    'email'=>$request->email,
+                    'contact_no'=>$request->contact_no,
+                    'address'=>$request->address,
+                ]);
+            }else{
+                $userProfile->update([
+                    'name'=>$request->name,
+                    'contact_no'=>$request->contact_no,
+                    'address'=>$request->address,
+                ]);
             }
 
 
-            $userProfile->update([
-                'name'=>$request->name,
-                'contact_no'=>$request->contact_no,
-                'address'=>$request->address,
-            ]);
+
 
             return response()->json([
                 'success' => true,
