@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserProfile;
-use Auth;
+use Auth,Validator,DB;
 use App\User;
 use App\Models\AcademicInformation;
 
@@ -84,19 +84,88 @@ class CommonController extends Controller
             ], Response::HTTP_NOT_FOUND); 
         }
 
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'academic_data' => 'required|array|min:1',
+            'academic_data.*.exam_name' => 'required|max:50',
+            'academic_data.*.institute' => 'required|max:150',
+            'academic_data.*.cgpa' => 'required|max:5|numeric',
+            'academic_data.*.year' => 'nullable|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'data' => [],
+                'message' => $validator->errors()->first(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $isExistAcademicInfo = AcademicInformation::where('user_id', $user_id)->first();
+            if(!empty($isExistAcademicInfo)){
+                AcademicInformation::where('user_id', $user_id)->delete();
+            }
+
+
+            foreach ($request->academic_data as $key=>$academic){
+                $academicInput[]=[
+                    "user_id"       => $user_id,
+                    "exam_name"     => $academic['exam_name'],
+                    "institute"     => $academic['institute'],
+                    "cgpa"          => $academic['cgpa'],
+                    "year"          => $academic['year'],
+                    "is_completed"  => $academic['is_completed'],
+                    "is_pursuing"   => $academic['is_pursuing']
+                ];
+            }
+
+            AcademicInformation::insert($academicInput);
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'data' => [],
+                'message' => "Academic Information has been created successfully"
+            ], Response::HTTP_CREATED);
+
+        } catch (Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'success' => false, 'data' => [], 'message' => "Please, Check details."
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function academicInformationsCreateUpdateOld(Request $request)
+    {
+        $user_id = Auth::user()->id ? Auth::user()->id : 0;
+        $user_info = User::where("id", $user_id)->first();
+
+        if(empty($user_info)){
+            return response()->json([
+                'success' => false,
+                'data' => [],
+                'message' => "User not found!"
+            ], Response::HTTP_NOT_FOUND);
+        }
+
         if(!$request->exam_name){
             return response()->json([
                 'success' => false, 'data' => [], 'message' => "Please, enter exam name!"
-            ], Response::HTTP_NOT_FOUND); 
+            ], Response::HTTP_NOT_FOUND);
         }
 
         $payload = [
-            "user_id"       => $user_id, 
-            "exam_name"     => $request->exam_name, 
-            "institute"     => $request->institute, 
-            "cgpa"          => $request->cgpa, 
-            "year"          => $request->year, 
-            "is_completed"  => $request->is_completed, 
+            "user_id"       => $user_id,
+            "exam_name"     => $request->exam_name,
+            "institute"     => $request->institute,
+            "cgpa"          => $request->cgpa,
+            "year"          => $request->year,
+            "is_completed"  => $request->is_completed,
             "is_pursuing"   => $request->is_pursuing
         ];
 
@@ -110,6 +179,7 @@ class CommonController extends Controller
                 ], Response::HTTP_OK);
 
             } else {
+
                 $isExist = AcademicInformation::where('user_id', $user_id)->where('exam_name', $request->exam_name)->first();
                 if (empty($isExist)) {
                     AcademicInformation::create($payload);
@@ -127,7 +197,7 @@ class CommonController extends Controller
                 }
             }
 
-        } catch (Exception $e) {           
+        } catch (Exception $e) {
             return response()->json([
                 'success' => false, 'data' => [], 'message' => "Please, Check details."
             ], Response::HTTP_NOT_FOUND);
