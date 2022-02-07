@@ -32,8 +32,8 @@ class UserProjectController extends Controller
 
         $myProjectData = UserProject::where('user_id', $user_id)->get();
         return response()->json([
-            'success' => true, 'data' => $myProjectData, 'message' => "My project data list"
-        ], Response::HTTP_NOT_FOUND);
+            'success' => true, 'data' => $myProjectData, 'message' => "Project data list"
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -179,7 +179,7 @@ class UserProjectController extends Controller
             if (empty($userProject))
             {
                 return response()->json([
-                    'success' => false,'data' => [],'message' => "Reference not found!"
+                    'success' => false,'data' => [],'message' => "Project not found!"
                 ], Response::HTTP_NOT_FOUND);
             }
 

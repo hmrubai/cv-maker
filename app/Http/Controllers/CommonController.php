@@ -222,7 +222,7 @@ class CommonController extends Controller
         $all = AcademicInformation::where('user_id', $user_id)->get();
         return response()->json([
             'success' => true, 'data' => $all, 'message' => "Successful."
-        ], Response::HTTP_NOT_FOUND);
+        ], Response::HTTP_OK);
     }
 
     public function userProfileImageUpdate(Request $request)
@@ -332,6 +332,41 @@ class CommonController extends Controller
             return response()->json([
                 'success' => false, 'data' => [], 'message' => $e->getMessage()
             ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+
+    public function academicInformationDestroy($academicId){
+        $user_id = Auth::user()->id ? Auth::user()->id : 0;
+        $user_info = User::where("id", $user_id)->first();
+
+        if(empty($user_info)){
+            return response()->json([
+                'success' => false,'data' => [],'message' => "User not found!"
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        try{
+            $userAcademicData=AcademicInformation::where(['user_id'=>$user_id,'id'=>$academicId])->first();
+
+            if (empty($userAcademicData))
+            {
+                return response()->json([
+                    'success' => false,'data' => [],'message' => "Academic Data not found!"
+                ], Response::HTTP_NOT_FOUND);
+            }
+
+            $userAcademicData->delete();
+
+            return response()->json([
+                'success' => true,'data' => [],'message' => "Your Academic Data has been Removed successfully!"
+            ], Response::HTTP_NOT_FOUND);
+
+        }catch (\Exception $e)
+        {
+            return response()->json([
+                'success' => false, 'data' => [],'message' => $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

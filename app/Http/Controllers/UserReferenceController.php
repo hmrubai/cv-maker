@@ -32,7 +32,7 @@ class UserReferenceController extends Controller
         $myReferenceData = UserReference::where('user_id', $user_id)->get();
         return response()->json([
             'success' => true, 'data' => $myReferenceData, 'message' => "My reference data list"
-        ], Response::HTTP_NOT_FOUND);
+        ], Response::HTTP_OK);
     }
 
     /**
