@@ -25,7 +25,8 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::post('academic-create-or-update', 'CommonController@academicInformationsCreateUpdate');
     Route::get('user-academic-information-list', 'CommonController@academicInformationsList');
 
-    Route::apiResource('my-project', 'UserProjectController');
+    Route::apiResource('user-projects', 'UserProjectController');
+    Route::apiResource('user-references', 'UserReferenceController');
 
 });
 

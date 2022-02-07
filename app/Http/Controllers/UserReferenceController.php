@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserProject;
 use Illuminate\Http\Request;
+use App\Models\UserReference;
 use Auth,Validator,DB;
 use App\User;
 
 use Symfony\Component\HttpFoundation\Response;
 
-
-class UserProjectController extends Controller
+class UserReferenceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,9 +29,9 @@ class UserProjectController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
 
-        $myProjectData = UserProject::where('user_id', $user_id)->get();
+        $myReferenceData = UserReference::where('user_id', $user_id)->get();
         return response()->json([
-            'success' => true, 'data' => $myProjectData, 'message' => "My project data list"
+            'success' => true, 'data' => $myReferenceData, 'message' => "My reference data list"
         ], Response::HTTP_NOT_FOUND);
     }
 
@@ -55,6 +54,7 @@ class UserProjectController extends Controller
     public function store(Request $request)
     {
 
+
         $user_id = Auth::user()->id ? Auth::user()->id : 0;
         $user_info = User::where("id", $user_id)->first();
 
@@ -69,11 +69,12 @@ class UserProjectController extends Controller
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'project_data' => 'required|array|min:1',
-            'project_data.*.project_name' => 'required|max:200',
-            'project_data.*.description' => 'required|max:1000',
-            'project_data.*.responsibility' => 'required|max:1000',
-            'project_data.*.project_link' => 'nullable|max:255',
+            'reference_data' => 'required|array|min:1',
+            'reference_data.*.name' => 'required|max:150',
+            'reference_data.*.designation' => 'required|max:150',
+            'reference_data.*.organization' => 'required|max:200',
+            'reference_data.*.email' => 'required|email|max:100',
+            'reference_data.*.mobile' => 'nullable|max:30',
         ]);
 
         if ($validator->fails()) {
@@ -87,31 +88,32 @@ class UserProjectController extends Controller
         try {
             DB::beginTransaction();
 
-            $isExistProjectInfo = UserProject::where('user_id', $user_id)->first();
+            $isExistProjectInfo = UserReference::where('user_id', $user_id)->first();
             if(!empty($isExistProjectInfo)){
-                UserProject::where('user_id', $user_id)->delete();
+                UserReference::where('user_id', $user_id)->delete();
             }
 
 
-            foreach ($request->project_data as $key=>$projectData){
-                $projectDataInput[]=[
+            foreach ($request->reference_data as $key=>$referenceData){
+                $referenceDataInput[]=[
                     "user_id"       => $user_id,
-                    "project_name"     => $projectData['project_name'],
-                    "description"     => $projectData['description'],
-                    "responsibility"          => $projectData['responsibility'],
-                    "project_link"          => $projectData['project_link'],
+                    "name"     => $referenceData['name'],
+                    "designation"     => $referenceData['designation'],
+                    "organization"          => $referenceData['organization'],
+                    "email"          => $referenceData['email'],
+                    "mobile"          => $referenceData['mobile'],
                     "created_at"          => date('Y-m-d h:i:s'),
                     "updated_at"          => date('Y-m-d h:i:s'),
                 ];
             }
 
-            UserProject::insert($projectDataInput);
+            UserReference::insert($referenceDataInput);
             DB::commit();
 
             return response()->json([
                 'success' => true,
                 'data' => [],
-                'message' => "Project Information has been created successfully"
+                'message' => "Reference Information has been created successfully"
             ], Response::HTTP_CREATED);
 
         } catch (Exception $e) {
@@ -125,10 +127,10 @@ class UserProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\UserProject  $userProject
+     * @param  \App\Models\UserReference  $userReference
      * @return \Illuminate\Http\Response
      */
-    public function show(UserProject $userProject)
+    public function show(UserReference $userReference)
     {
         //
     }
@@ -136,10 +138,10 @@ class UserProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\UserProject  $userProject
+     * @param  \App\Models\UserReference  $userReference
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserProject $userProject)
+    public function edit(UserReference $userReference)
     {
         //
     }
@@ -148,10 +150,10 @@ class UserProjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\UserProject  $userProject
+     * @param  \App\Models\UserReference  $userReference
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserProject $userProject)
+    public function update(Request $request, UserReference $userReference)
     {
         //
     }
@@ -159,10 +161,10 @@ class UserProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\UserProject  $userProject
+     * @param  \App\Models\UserReference  $userReference
      * @return \Illuminate\Http\Response
      */
-    public function destroy($projectId)
+    public function destroy($referenceId)
     {
         $user_id = Auth::user()->id ? Auth::user()->id : 0;
         $user_info = User::where("id", $user_id)->first();
@@ -174,19 +176,19 @@ class UserProjectController extends Controller
         }
 
         try{
-            $userProject=UserProject::where(['user_id'=>$user_id,'id'=>$projectId])->first();
+            $userReference=UserReference::where(['user_id'=>$user_id,'id'=>$referenceId])->first();
 
-            if (empty($userProject))
+            if (empty($userReference))
             {
                 return response()->json([
                     'success' => false,'data' => [],'message' => "Reference not found!"
                 ], Response::HTTP_NOT_FOUND);
             }
 
-            $userProject->delete();
+            $userReference->delete();
 
             return response()->json([
-                'success' => true,'data' => [],'message' => "Your Project has been Removed successfully!"
+                'success' => true,'data' => [],'message' => "Your Reference has been Removed successfully!"
             ], Response::HTTP_NOT_FOUND);
 
         }catch (\Exception $e)
