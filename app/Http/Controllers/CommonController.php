@@ -119,7 +119,9 @@ class CommonController extends Controller
                     "cgpa"          => $academic['cgpa'],
                     "year"          => $academic['year'],
                     "is_completed"  => $academic['is_completed'],
-                    "is_pursuing"   => $academic['is_pursuing']
+                    "is_pursuing"   => $academic['is_pursuing'],
+                    "created_at"    => date('Y-m-d h:i:s'),
+                    "updated_at"    => date('Y-m-d h:i:s'),
                 ];
             }
 
@@ -135,7 +137,7 @@ class CommonController extends Controller
         } catch (Exception $e) {
             DB::rollback();
             return response()->json([
-                'success' => false, 'data' => [], 'message' => "Please, Check details."
+                'success' => false, 'data' => [], 'message' => $e->getMessage()
             ], Response::HTTP_NOT_FOUND);
         }
     }
