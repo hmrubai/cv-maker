@@ -25,6 +25,14 @@ class CommonController extends Controller
     public function getMyProfile(Request $request)
     {
         $myProfile = UserProfile::where(['user_id'=>Auth::user()->id])->first();
+
+        if (empty($myProfile)){
+            $myProfile=[];
+        }else{
+            $myProfile['profile_image']=url($myProfile->profile_image);
+            $myProfile['signature']=url($myProfile->signature);
+        }
+
         return response()->json(['success' => true, 'data' => $myProfile, 'message' => 'User fetch successful']);
     }
 
