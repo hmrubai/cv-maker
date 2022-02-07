@@ -24,6 +24,11 @@ Route::group(['middleware' => 'jwt.verify'], function () {
 
     Route::post('academic-create-or-update', 'CommonController@academicInformationsCreateUpdate');
     Route::get('user-academic-information-list', 'CommonController@academicInformationsList');
-    
+    Route::delete('user-academic-information-delete/{academicId}', 'CommonController@academicInformationDestroy');
+
+    Route::apiResource('user-projects', 'UserProjectController');
+    Route::apiResource('user-references', 'UserReferenceController');
+    Route::apiResource('user-experiences', 'UserExperienceController');
+
 });
 

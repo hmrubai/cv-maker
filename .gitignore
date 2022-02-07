@@ -4,6 +4,7 @@
 /public/pdf/*
 /public/uploads/games
 /public/uploads/games/*
+/public/uploads/*
 /public/storage
 /storage/*.key
 /vendor
