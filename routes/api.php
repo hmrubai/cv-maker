@@ -18,6 +18,10 @@ Route::group(['middleware' => 'jwt.verify'], function () {
 
     Route::get('my-profile', 'CommonController@getMyProfile');
     Route::post('user-update', 'CommonController@userUpdate');
+
+    Route::post('user-profile-image-update', 'CommonController@userProfileImageUpdate');
+    Route::post('user-signature-update', 'CommonController@userSignatureUpdate');
+
     Route::post('academic-create-or-update', 'CommonController@academicInformationsCreateUpdate');
     Route::get('user-academic-information-list', 'CommonController@academicInformationsList');
     
