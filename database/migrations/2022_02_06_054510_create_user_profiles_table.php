@@ -20,6 +20,8 @@ class CreateUserProfilesTable extends Migration
             $table->string('email')->unique();
             $table->string('contact_no')->nullable();
             $table->string('address')->nullable();
+            $table->string('profile_image')->nullable();
+            $table->string('signature')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();

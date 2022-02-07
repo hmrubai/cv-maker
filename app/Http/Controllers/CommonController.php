@@ -222,4 +222,115 @@ class CommonController extends Controller
             'success' => true, 'data' => $all, 'message' => "Successful."
         ], Response::HTTP_NOT_FOUND);
     }
+
+    public function userProfileImageUpdate(Request $request)
+    {
+        $user_id = Auth::user()->id ? Auth::user()->id : 0;
+        $user_info = User::where("id", $user_id)->first();
+
+        if(empty($user_info)){
+            return response()->json([
+                'success' => false,
+                'data' => [],
+                'message' => "User not found!"
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'profile_image' => 'required|mimes:jpeg,jpg,png,gif|max:50000',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'data' => [],
+                'message' => $validator->errors()->first(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        try {
+
+            $userProfile=UserProfile::where("user_id", $user_id)->first();
+
+            if ($request->hasFile('profile_image')) {
+                $profile_image=\MyHelper::photoUpload($request->file('profile_image'),'uploads/profile-image');
+
+                if (!empty($userProfile) && file_exists($userProfile->profile_image)){
+                    unlink($userProfile->profile_image);
+                }
+
+                $userProfile->update(['profile_image'=>$profile_image]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => [],
+                'message' => "Profile Image Upload Successful"
+            ], Response::HTTP_CREATED);
+
+        } catch (Exception $e) {
+
+            return response()->json([
+                'success' => false, 'data' => [], 'message' => $e->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function userSignatureUpdate(Request $request)
+    {
+        $user_id = Auth::user()->id ? Auth::user()->id : 0;
+        $user_info = User::where("id", $user_id)->first();
+
+        if(empty($user_info)){
+            return response()->json([
+                'success' => false,
+                'data' => [],
+                'message' => "User not found!"
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'signature' => 'required|mimes:jpeg,jpg,png,gif|max:50000',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'data' => [],
+                'message' => $validator->errors()->first(),
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        try {
+
+            $userProfile=UserProfile::where("user_id", $user_id)->first();
+
+            if ($request->hasFile('signature')) {
+                $signature=\MyHelper::photoUpload($request->file('signature'),'uploads/user-signature');
+
+                if (!empty($userProfile) && file_exists($userProfile->signature)){
+                    unlink($userProfile->signature);
+                }
+
+                $userProfile->update(['signature'=>$signature]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => [],
+                'message' => "Signature Image Upload Successful"
+            ], Response::HTTP_CREATED);
+
+        } catch (Exception $e) {
+
+            return response()->json([
+                'success' => false, 'data' => [], 'message' => $e->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
 }
