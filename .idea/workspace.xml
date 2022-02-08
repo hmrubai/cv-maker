@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5d263969-70a9-4c3f-974c-a553424e1578" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/CommonController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommonController.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,38 +13,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="api.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="api.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="340">
+              <caret line="18" column="26" lean-forward="false" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CommonController.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/CommonController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="32" column="61" lean-forward="false" selection-start-line="32" selection-start-column="61" selection-end-line="32" selection-end-column="61" />
-              <folding>
-                <element signature="e#267#375#0#PHP" expanded="false" />
-                <element signature="e#381#566#0#PHP" expanded="false" />
-                <element signature="e#1053#2281#0#PHP" expanded="false" />
-                <element signature="e#2287#4878#0#PHP" expanded="false" />
-                <element signature="e#4884#7312#0#PHP" expanded="false" />
-                <element signature="e#7318#7954#0#PHP" expanded="false" />
-                <element signature="e#7511#7737#0#PHP" expanded="false" />
-                <element signature="e#7960#9735#0#PHP" expanded="false" />
-                <element signature="e#8151#8376#0#PHP" expanded="false" />
-                <element signature="e#8555#8808#0#PHP" expanded="false" />
-                <element signature="e#9084#9229#0#PHP" expanded="false" />
-                <element signature="e#9741#11484#0#PHP" expanded="false" />
-                <element signature="e#10847#10984#0#PHP" expanded="false" />
-                <element signature="e#11491#12704#0#PHP" expanded="false" />
-                <element signature="e#11676#11867#0#PHP" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -90,6 +63,7 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/UserProjectController.php" />
         <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/CommonController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Traits/ApiResponseTrait.php" />
       </list>
     </option>
   </component>
@@ -151,18 +125,12 @@
               <item name="cv-maker" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Http" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Traits" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="cv-maker" type="b2602c69:ProjectViewProjectNode" />
               <item name="cv-maker" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="Models" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="cv-maker" type="b2602c69:ProjectViewProjectNode" />
-              <item name="cv-maker" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="database" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="config" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -176,10 +144,11 @@
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="last_opened_file_path" value="$USER_HOME$/AppData/Roaming/npm/node_modules/@angular/cli" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/xampp/htdocs/cv-maker/app/Http/Controllers/CommonController.php&#10;Refer&#9;FILE&#9;file://D:/xampp/htdocs/cv-maker/app/Http/Controllers/UserReferenceController.php&#10;Experi&#9;null&#9;null&#10;Academic&#9;FILE&#9;file://D:/xampp/htdocs/cv-maker/app/Models/AcademicInformation.php&#10;Proje&#9;FILE&#9;file://D:/xampp/htdocs/cv-maker/app/Http/Controllers/UserProjectController.php&#10;Aca&#9;null&#9;null&#10;User&#9;FILE&#9;file://D:/xampp/htdocs/cv-maker/app/Models/UserProfile.php&#10;UserPr&#9;FILE&#9;file://D:/xampp/htdocs/cv-maker/app/Models/UserProfile.php" />
+    <property name="SearchEverywhereHistoryKey" value="Proj&#9;FILE&#9;file://D:/xampp/htdocs/cv-maker/app/Http/Controllers/UserProjectController.php&#10;Refer&#9;FILE&#9;file://D:/xampp/htdocs/cv-maker/app/Http/Controllers/UserReferenceController.php&#10;Experi&#9;null&#9;null&#10;Academic&#9;FILE&#9;file://D:/xampp/htdocs/cv-maker/app/Models/AcademicInformation.php&#10;Proje&#9;FILE&#9;file://D:/xampp/htdocs/cv-maker/app/Http/Controllers/UserProjectController.php&#10;Aca&#9;null&#9;null&#10;User&#9;FILE&#9;file://D:/xampp/htdocs/cv-maker/app/Models/UserProfile.php&#10;UserPr&#9;FILE&#9;file://D:/xampp/htdocs/cv-maker/app/Models/UserProfile.php" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\xampp\htdocs\cv-maker\app\Http" />
       <recent name="D:\xampp\htdocs\cv-maker\app\Providers" />
       <recent name="D:\xampp\htdocs\cv-maker" />
     </key>
@@ -211,18 +180,18 @@
       <updated>1644124986631</updated>
       <workItem from="1644124988031" duration="244000" />
       <workItem from="1644125443443" duration="17405000" />
-      <workItem from="1644203124518" duration="18595000" />
+      <workItem from="1644203124518" duration="21304000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36244000" />
+    <option name="totallyTimeSpent" value="38953000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25321338" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25321338" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -249,7 +218,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -536,24 +507,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserProjectController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="181" column="73" lean-forward="false" selection-start-line="181" selection-start-column="73" selection-end-line="181" selection-end-column="73" />
-          <folding>
-            <element signature="e#40#67#0#PHP" expanded="true" />
-            <element signature="e#501#726#0#PHP" expanded="false" />
-            <element signature="e#2118#2371#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserExperienceController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="171" column="39" lean-forward="false" selection-start-line="171" selection-start-column="39" selection-end-line="171" selection-end-column="39" />
           <folding>
-            <element signature="e#40#70#0#PHP" expanded="true" />
+            <element signature="e#40#70#0#PHP" expanded="false" />
             <element signature="e#2216#2469#0#PHP" expanded="false" />
             <element signature="e#2620#2735#0#PHP" expanded="false" />
             <element signature="e#2855#3019#0#PHP" expanded="false" />
@@ -561,25 +520,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/CommonController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="32" column="61" lean-forward="false" selection-start-line="32" selection-start-column="61" selection-end-line="32" selection-end-column="61" />
+        <state relative-caret-position="252">
+          <caret line="227" column="9" lean-forward="true" selection-start-line="227" selection-start-column="9" selection-end-line="227" selection-end-column="9" />
           <folding>
             <element signature="e#267#375#0#PHP" expanded="false" />
             <element signature="e#381#566#0#PHP" expanded="false" />
+            <element signature="e#572#1047#0#PHP" expanded="false" />
             <element signature="e#1053#2281#0#PHP" expanded="false" />
             <element signature="e#2287#4878#0#PHP" expanded="false" />
             <element signature="e#4884#7312#0#PHP" expanded="false" />
-            <element signature="e#7318#7954#0#PHP" expanded="false" />
             <element signature="e#7511#7737#0#PHP" expanded="false" />
             <element signature="e#7960#9735#0#PHP" expanded="false" />
             <element signature="e#8151#8376#0#PHP" expanded="false" />
@@ -590,6 +541,50 @@
             <element signature="e#11491#12704#0#PHP" expanded="false" />
             <element signature="e#11676#11867#0#PHP" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Traits/PaytmTrait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/jwt.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="101" column="6" lean-forward="true" selection-start-line="101" selection-start-column="6" selection-end-line="101" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Traits/ApiResponseTrait.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/UserProjectController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1120">
+          <caret line="194" column="61" lean-forward="false" selection-start-line="194" selection-start-column="61" selection-end-line="194" selection-end-column="61" />
+          <folding>
+            <element signature="e#40#67#0#PHP" expanded="true" />
+            <element signature="e#501#726#0#PHP" expanded="false" />
+            <element signature="e#2118#2371#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="18" column="26" lean-forward="false" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
