@@ -35,8 +35,7 @@ trait ApiResponseTrait
         return response()->json([
                 'success' => true,
                 'message' => $message,
-                'data' => $data,
-                'code' => $code
+                'data' => $data
                 ],$code);
 
     }
@@ -46,8 +45,7 @@ trait ApiResponseTrait
         return response()->json([
             'success'=>false,
             'message'=>$message,
-            'data'=>$data,
-            'code'=>$code,
+            'data'=>$data
         ], $code);
     }
 
@@ -59,7 +57,7 @@ trait ApiResponseTrait
         if ($validator->passes()) {
             return true;
         }
-        return response()->json($validator->getmessagebag()->all(),$code);
+        return response()->json($validator->getmessagebag()->first(),$code);
     }
 
     protected function noDataFoundException($message='',$data=[],$code=Response::HTTP_NOT_FOUND)
@@ -67,8 +65,7 @@ trait ApiResponseTrait
         return response()->json([
             'success'=>false,
             'message'=>$message,
-            'data'=>$data,
-            'code'=>$code
+            'data'=>$data
         ],$code);
     }
     protected function alreadyExists($message='',$data=[],$code=Response::HTTP_CONFLICT)
@@ -76,8 +73,7 @@ trait ApiResponseTrait
         return response()->json([
             'success'=>false,
             'message'=>$message,
-            'data'=>$data,
-            'code'=>$code
+            'data'=>$data
         ],$code);
     }
 

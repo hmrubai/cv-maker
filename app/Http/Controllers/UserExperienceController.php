@@ -67,7 +67,7 @@ class UserExperienceController extends Controller
             'experience_data.*.from_date' => 'required|date',
             'experience_data.*.is_left_job' => 'nullable|in:0,1',
             'experience_data.*.to_date' => 'nullable|date',
-            'experience_data.*.is_still_active' => 'required|in:0,1',
+            'experience_data.*.is_still_active' => 'nullable|in:0,1',
         ]);
 
         if ($validator->fails()) {
@@ -99,9 +99,9 @@ class UserExperienceController extends Controller
                     "organization"     => $experience['organization'],
                     "designation"     => $experience['designation'],
                     "from_date"          => date('Y-m-d',strtotime($experience['from_date'])),
-                    "is_left_job"  => $experience['is_left_job'],
+                    "is_left_job"  => $experience['is_left_job']?$experience['is_left_job']:0,
                     "to_date"          => $toDate,
-                    "is_still_active"   => $experience['is_still_active'],
+                    "is_still_active"   => $experience['is_still_active']?$experience['is_still_active']:0,
                     "created_at"    => date('Y-m-d h:i:s'),
                     "updated_at"    => date('Y-m-d h:i:s'),
                 ];
