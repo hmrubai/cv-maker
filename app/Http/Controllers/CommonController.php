@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserProfile;
-use Auth,Validator,DB;
+use Auth,Validator,MyHelper,DB;
 use App\User;
 use App\Models\AcademicInformation;
 
@@ -265,7 +265,7 @@ class CommonController extends Controller
             $userProfile=UserProfile::where("user_id", $user_id)->first();
 
             if ($request->hasFile('profile_image')) {
-                $profile_image=\MyHelper::photoUpload($request->file('profile_image'),'uploads/profile-image');
+                $profile_image=MyHelper::photoUpload($request->file('profile_image'),'uploads/profile-image');
 
                 if (!empty($userProfile) && file_exists($userProfile->profile_image)){
                     unlink($userProfile->profile_image);
@@ -320,7 +320,7 @@ class CommonController extends Controller
             $userProfile=UserProfile::where("user_id", $user_id)->first();
 
             if ($request->hasFile('signature')) {
-                $signature=\MyHelper::photoUpload($request->file('signature'),'uploads/user-signature');
+                $signature=MyHelper::photoUpload($request->file('signature'),'uploads/user-signature');
 
                 if (!empty($userProfile) && file_exists($userProfile->signature)){
                     unlink($userProfile->signature);
