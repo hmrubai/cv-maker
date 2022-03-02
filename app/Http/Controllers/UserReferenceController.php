@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use App\Models\UserReference;
 use Auth,Validator,DB;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserReferenceController extends Controller
 {
+    use ApiResponseTrait;
     /**
      * Display a listing of the resource.
      *
@@ -53,8 +55,6 @@ class UserReferenceController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $user_id = Auth::user()->id ? Auth::user()->id : 0;
         $user_info = User::where("id", $user_id)->first();
 
@@ -66,23 +66,20 @@ class UserReferenceController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
 
-        $data = $request->all();
-
-        $validator = Validator::make($data, [
+        $validator =  [
             'reference_data' => 'required|array|min:1',
             'reference_data.*.name' => 'required|max:150',
             'reference_data.*.designation' => 'required|max:150',
             'reference_data.*.organization' => 'required|max:200',
             'reference_data.*.email' => 'required|email|max:100',
             'reference_data.*.mobile' => 'nullable|max:30',
-        ]);
+        ];
 
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'data' => [],
-                'message' => $validator->errors()->first(),
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        $validateResponse=$this->respondWithValidation($request->all(),$validator);
+
+        if ($validateResponse!='pass')
+        {
+            return $this->respondWithError($validateResponse->original,[],Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         try {
