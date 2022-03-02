@@ -65,9 +65,9 @@ class UserExperienceController extends Controller
             'experience_data.*.organization' => 'required|max:150',
             'experience_data.*.designation' => 'required|max:150',
             'experience_data.*.from_date' => 'required|date',
-            'experience_data.*.is_left_job' => 'nullable|in:0,1',
+            'experience_data.*.is_left_job' => 'nullable',
             'experience_data.*.to_date' => 'nullable|date',
-            'experience_data.*.is_still_active' => 'nullable|in:0,1',
+            'experience_data.*.is_still_active' => 'nullable',
         ]);
 
         if ($validator->fails()) {
@@ -90,7 +90,7 @@ class UserExperienceController extends Controller
 
                 $toDate=Null;
 
-                if ($experience['is_left_job']==1 && !empty($experience['to_date'])){
+                if ($experience['is_left_job']==true && !empty($experience['to_date'])){
                     $toDate=date('Y-m-d',strtotime($experience['to_date']));
                 }
 
