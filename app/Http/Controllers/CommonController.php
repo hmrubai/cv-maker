@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CommonController extends Controller
 {
+
+
     public function index(){
         return response()->json(['message' => 'Welcome to Makaw API!'], 200);
     }
@@ -376,6 +378,22 @@ class CommonController extends Controller
                 'success' => false, 'data' => [],'message' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public function decriptyMethod(){
+
+        $ivHashCiphertext= 'U2FsdGVkX1+7Ou7Syj+KaP/l1F+2/oCjrTVKwTIeryc=';
+        $password='password';
+
+        $method = "AES-256-CBC";
+        $iv = substr($ivHashCiphertext, 0, 16);
+        $hash = substr($ivHashCiphertext, 16, 32);
+        $ciphertext = substr($ivHashCiphertext, 48);
+        $key = hash('sha256', $password, true);
+
+        if (!hash_equals(hash_hmac('sha256', $ciphertext . $iv, $key, true), $hash)) return null;
+
+        return openssl_decrypt($ciphertext, $method, $key, OPENSSL_RAW_DATA, $iv);
     }
 
 }
